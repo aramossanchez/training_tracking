@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #000117;
+  --foreground: #ffffff;
+  --primaryColor: #faa03f;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+  font-weight: bold;
+  font-size: 50px;
+  line-height: 50px;
+}
+
+h2 {
+  font-weight: 600;
+  font-size: 35px;
+  line-height: 35px;
+}
+
+@layer base {
+  .template-structure {
+    @apply p-[2%] grid grid-cols-12;
+  }
+}
