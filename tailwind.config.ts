@@ -7,6 +7,7 @@ export default {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./templates/**/*.{js,ts,jsx,tsx,mdx}",
     "./organisms/**/*.{js,ts,jsx,tsx,mdx}",
+    "./molecules/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
