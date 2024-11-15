@@ -37,7 +37,7 @@ export default function MonthCalendar({
           {month.days.map((day, index) => {
             return (
               <div key={day.toDateString()} className="my-1 col-span-1 h-10 flex justify-center items-center" style={{ gridColumnStart: firstDay(index, day.getDay()) }}>
-                <span className='leading-[2.2rem] h-10 w-10 text-center rounded-full border-2 border-transparent hover:border-primaryColor duration-500 ease-out cursor-pointer'>{index + 1}</span>
+                <span id={day.getTime().toString()} className='leading-[2.2rem] h-10 w-10 text-center rounded-full border-2 border-transparent hover:border-primaryColor duration-500 ease-out cursor-pointer'>{index + 1}</span>
               </div>
             )
           })}
