@@ -6,8 +6,8 @@ export default function HeaderTemplate() {
     <header className='w-full min-w-screen max-w-screen pt-2 bg-background'>
       <div className='border-b-2 border-primaryColor flex gap-x-1'>
         <Tab text='Entrenamientos' url='/workouts' />
-        <Tab text='Sesiones' url='session-creator' />
         <Tab text='Calendario' url='calendar' />
+        <Tab text='Rutinas' url='routine-creator' />
       </div>
 
     </header>

@@ -1,11 +1,17 @@
-export interface CreatingSession {
+export interface CreatingRoutine {
   name: string,
-  session: string[],
+  routine: string[],
 }
 
-export interface Workout extends CreatingSession {
-  sets?: string,
-  repetitions?: string,
-  weight?: string,
-  time?: string
+export interface CreatingWorkout {
+  routine: string[],
+  day?: string,
+  date: Date,
+  sets?: string[],
+  repetitions?: string[],
+  weights?: string[],
+  times?: string[],
+  distances?: string[],
 }
+
+export type WorkoutsList = Record<number, CreatingWorkout[]>;
