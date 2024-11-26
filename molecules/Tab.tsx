@@ -1,19 +1,22 @@
 import Link from 'next/link';
-import React from 'react'
+import React, { ReactNode } from 'react'
 
 interface TabProps {
   text: string;
   url: string;
+  icon?: ReactNode;
 }
 
 export default function Tab({
   text,
   url,
+  icon,
 }: TabProps) {
   return (
     <Link href={url}
-      className='font-semibold cursor-pointer rounded-t-lg border-4 border-b-0 border-primaryColor py-2 px-4 bg-background hover:bg-primaryColor hover:text-background'
+      className='w-full px-8 py-1 hover:bg-primaryColor hover:text-alternateForeground hover:rounded-lg flex items-center gap-x-2'
     >
+      {icon}
       {text}
     </Link>
   )

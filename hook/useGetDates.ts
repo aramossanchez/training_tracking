@@ -1,10 +1,12 @@
-interface GetAllDaysOfTheYearProps {
+interface GetDatesProps {
   selectedYear: number;
+  selectedMonth?: number;
 }
 
-export const useGetAllDaysOfTheYear = ({
-  selectedYear
-}: GetAllDaysOfTheYearProps) => {
+export const useGetDates = ({
+  selectedYear,
+  selectedMonth
+}: GetDatesProps) => {
   const MONTHS = [
     "Enero",
     "Febrero",
@@ -33,8 +35,22 @@ export const useGetAllDaysOfTheYear = ({
     });
   }
 
+  let allDaysOfTheMonth: {month: string, days: Date[]} = {month: "", days: []};
+  if (selectedMonth) {
+    const daysCount = new Date(selectedYear, selectedMonth + 1, 0).getDate();
+    const dates: Date[] = [];
+    for (let day = 1; day <= daysCount; day++) {
+      dates.push(new Date(selectedYear, selectedMonth, day))
+    }
+    allDaysOfTheMonth = {
+      month: MONTHS[selectedMonth],
+      days: dates
+    }
+  }
+
   return {
-    allDaysOfTheYear
+    allDaysOfTheYear,
+    allDaysOfTheMonth
   }
 
 }

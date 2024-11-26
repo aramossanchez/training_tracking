@@ -1,12 +1,12 @@
 "use-client";
-import { useGetAllDaysOfTheYear } from '@/hook/useGetAllDaysOfTheYear';
+import { useGetDates } from '@/hook/useGetDates';
 import MonthCalendar from '@/molecules/MonthCalendar';
 import React from 'react';
 
 export default function Calendar() {
-  const year = 2024;
+  const year = new Date().getFullYear();
 
-  const { allDaysOfTheYear } = useGetAllDaysOfTheYear({selectedYear: year})
+  const { allDaysOfTheYear } = useGetDates({selectedYear: year})
 
   return (
     <section className='col-span-full grid grid-cols-12 space-y-10 gap-x-10'>
