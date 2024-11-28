@@ -3,6 +3,8 @@ import localFont from "next/font/local";
 import "../styles/globals.css";
 import FooterTemplate from "@/templates/FooterTemplate";
 import NavbarTemplate from "@/templates/NavbarTemplate";
+import NavbarButton from "@/atoms/NavbarButton";
+import { NavbarProvider } from "@/context/navbarState";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -31,11 +33,14 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} overflow-hidden`}
       >
         <main className="grid grid-cols-[auto_1fr] w-full h-screen">
-          <NavbarTemplate />
-          <section className="overflow-y-scroll">
-            {children}
-            <FooterTemplate />
-          </section>
+          <NavbarProvider>
+            <NavbarTemplate />
+            <section className="overflow-y-scroll">
+              <NavbarButton />
+              {children}
+              <FooterTemplate />
+            </section>
+          </NavbarProvider>
         </main>
       </body>
     </html>

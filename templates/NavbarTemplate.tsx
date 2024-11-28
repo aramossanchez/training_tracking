@@ -1,16 +1,20 @@
-import ArrowRightIcon from '@/atoms/ArrowRightIcon'
-import CalendarIcon from '@/atoms/CalendarIcon'
-import RutineIcon from '@/atoms/RutineIcon'
-import TrainingIcon from '@/atoms/TrainingIcon'
-import Tab from '@/molecules/Tab'
-import Image from 'next/image'
-import React from 'react'
+"use client";
+import CalendarIcon from '@/atoms/icons/CalendarIcon';
+import RutineIcon from '@/atoms/icons/RutineIcon';
+import TrainingIcon from '@/atoms/icons/TrainingIcon';
+import { useNavbarState } from '@/context/navbarState';
+import Tab from '@/molecules/Tab';
+import Image from 'next/image';
+import React from 'react';
 
 export default function NavbarTemplate() {
+  const { openedNavbar } = useNavbarState();
+  const styleNavbar = openedNavbar ? "px-5" : "px-2"
+
   return (
-    <nav className='h-screen w-fit bg-backgroundSoft py-4 space-y-10 rounded-br-3xl rounded-tr-3xl shadow-2xl shadow-shadowColor z-50'>
-      <div className='flex items-center gap-x-8 px-8 pr-1'>
-        <div className='flex items-center '>
+    <div className="h-screen bg-backgroundSoft py-4 space-y-10 shadow-2xl shadow-shadowColor z-50">
+      <div className={`${styleNavbar} flex items-center gap-x-8 duration-200`}>
+        <div className='flex items-center gap-x-2'>
           <Image
             alt='Logo'
             src={"/images/logo.webp"}
@@ -18,18 +22,15 @@ export default function NavbarTemplate() {
             height={40}
             className='rounded-full'
           />
-          <p className='font-bold text-3xl'>Regisfit</p>
+          {openedNavbar && <p className='font-bold text-3xl'>Regisfit</p>}
         </div>
-        <button className='duration-300 rotate-180 p-2 pr-0 opacity-60'>
-          <ArrowRightIcon />
-        </button>
       </div>
-      <div className='flex flex-col divide-y-[1px] divide-borderColor'>
+      <nav className='flex flex-col divide-y-[1px] divide-borderColor'>
         <Tab text='Entrenamientos' url='/workouts' icon={<TrainingIcon />} />
         <Tab text='Calendario' url='calendar' icon={<CalendarIcon />} />
         <Tab text='Rutinas' url='routine-creator' icon={<RutineIcon />} />
-      </div>
+      </nav>
 
-    </nav>
+    </div>
   )
 }

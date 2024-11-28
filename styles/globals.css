@@ -42,6 +42,9 @@ h2 {
   .template-structure {
     @apply p-[2%] grid grid-cols-12;
   }
+  .button-navbar {
+    @apply ml-[2%] mt-[0.5%]
+  }
   .important-text {
     @apply text-primaryColor text-xl font-medium;
   }

@@ -1,4 +1,7 @@
 "use client";
+import CircleButton from '@/atoms/CircleButton';
+import AddIcon from '@/atoms/icons/AddIcon';
+import SaveIcon from '@/atoms/icons/SaveIcon';
 import { FULL_DAYS } from '@/constants/constants';
 import { useWorkouts } from '@/hooks/useWorkouts';
 import WorkoutDone from '@/organisms/WorkoutDone';
@@ -57,8 +60,8 @@ export default function WorkoutsTemplate() {
           {FULL_DAYS.map((day, index) => {
             return (
               <div key={day} className='flex flex-row gap-x-10'>
-                <div className='min-w-32 max-w-32 text-nowrap flex flex-col justify-center border-2 border-primaryColor'>
-                  <span className='w-full text-center flex-nowrap px-2'>{day}</span>
+                <div className='min-w-32 max-w-32 text-nowrap h-fit text-alternateForeground font-semibold rounded-md'>
+                  <p className='text-left flex-nowrap px-2 text-xl bg-primaryColor'>{day}</p>
                 </div>
                 {workoutsList && Array.isArray(workoutsList[index]) && workoutsList[index].map((workout: CreatingWorkout, subindex: number) => {
                   return (
@@ -74,12 +77,8 @@ export default function WorkoutsTemplate() {
                     />
                   )
                 })}
-                <div className='flex flex-col justify-center'>
-                  <button className='h-fit text-nowrap px-4 py-2 border-2 border-primaryColor' onClick={() => { }}>NEW</button>
-                </div>
-                <div className='flex flex-col justify-center'>
-                  <button className='h-fit text-nowrap px-4 py-2 border-2 border-primaryColor' onClick={() => saveWorkout(index)}>SAVE</button>
-                </div>
+                <CircleButton icon={<AddIcon size={30}/>} onClick={() => console.log("addButton")}/>
+                <CircleButton icon={<SaveIcon size={30}/>} onClick={() => console.log("saveButton")}/>
               </div>
             )
           })}

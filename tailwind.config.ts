@@ -8,6 +8,7 @@ export default {
     "./templates/**/*.{js,ts,jsx,tsx,mdx}",
     "./organisms/**/*.{js,ts,jsx,tsx,mdx}",
     "./molecules/**/*.{js,ts,jsx,tsx,mdx}",
+    "./atoms/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
@@ -15,6 +16,10 @@ export default {
       colors: {
         ...colors
       },
+      boxShadow: {
+        "homogeneous": "1px 1px 20px -8px var(--shadowColor)",
+        "homogeneous-lg": "1px 1px 20px -6px var(--shadowColor)",
+      }
     },
   },
   plugins: [],
