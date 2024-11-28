@@ -14,7 +14,7 @@ export default function Tab({
 }: TabProps) {
   return (
     <Link href={url}
-      className='w-full px-8 py-1 hover:bg-primaryColor hover:text-alternateForeground hover:rounded-lg flex items-center gap-x-2'
+      className='w-full px-8 py-2 hover:bg-primaryColor hover:text-alternateForeground hover:rounded-lg flex items-center gap-x-2'
     >
       {icon}
       {text}
