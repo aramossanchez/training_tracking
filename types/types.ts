@@ -1,6 +1,12 @@
-export interface CreatingRoutine {
+interface Exercise {
+  id: number,
   name: string,
-  routine: string[],
+}
+
+export interface CreatingRoutine {
+  id: number,
+  name: string,
+  routine: Exercise[],
 }
 
 export interface CreatingWorkout {

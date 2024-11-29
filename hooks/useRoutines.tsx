@@ -6,7 +6,7 @@ export const useRoutines = () => {
     ? localStorage.getItem("training_tracking_my_routines")
     : null;
     
-  const storeRutine = (item: string) => {
+  const storeRoutine = (item: string) => {
     if (isLocalStorageAvailable) {
       localStorage.setItem("training_tracking_my_routines", item);
     }
@@ -14,7 +14,7 @@ export const useRoutines = () => {
 
   return {
     saved_routines,
-    storeRutine
+    storeRoutine
   }
 
 }
