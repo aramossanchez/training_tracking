@@ -7,15 +7,15 @@ import { CreatingRoutine } from '@/types/types';
 import React, { useState } from 'react'
 
 export default function CreatingNewRoutine() {
-  const initialRoutine = { id: Date.now(), name: "", routine: [{id: Date.now(), name: ""}] };
+  const initialRoutine = { id: crypto.randomUUID(), name: "", routine: [{id: crypto.randomUUID(), name: ""}] };
 
   const { saved_routines, storeRoutine } = useRoutines();
   const [newRoutine, setNewRoutine] = useState<CreatingRoutine | null>(initialRoutine);
 
-  const editNewRoutine = (field: string, value: string, id?: number) => {
+  const editNewRoutine = (field: string, value: string, id?: string) => {
     const editingRoutine = structuredClone(newRoutine);
     if (id !== undefined) {
-      const itemIndex = editingRoutine.routine.findIndex((item) => item.id === id);
+      const itemIndex = editingRoutine?.routine.findIndex((item) => item.id === id);
       editingRoutine[field][itemIndex].name = value;
     } else {
       editingRoutine[field] = value;
@@ -29,18 +29,18 @@ export default function CreatingNewRoutine() {
 
   const addNewExerciseInRoutine = () => {
     const editingRoutine = structuredClone(newRoutine);
-    const newExercise = {id: Date.now(), name: ""}
-    editingRoutine.routine.push(newExercise);
+    const newExercise = {id: crypto.randomUUID(), name: ""}
+    editingRoutine?.routine.push(newExercise);
     setNewRoutine(editingRoutine);
   }
 
   const saveRoutine = () => {
-    if (!saved_routines && newRoutine) {
-      storeRoutine(JSON.stringify([newRoutine]))
+    if (!saved_routines() && newRoutine) {
+      storeRoutine([newRoutine])
     } else {
-      const newRoutinesList = JSON.parse(saved_routines as string);
+      const newRoutinesList = structuredClone(saved_routines());
       newRoutinesList.push(newRoutine);
-      storeRoutine(JSON.stringify(newRoutinesList));
+      storeRoutine(newRoutinesList);
     }
     setNewRoutine(initialRoutine);
   }

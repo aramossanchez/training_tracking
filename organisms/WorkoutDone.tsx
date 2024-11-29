@@ -1,9 +1,10 @@
 import { MONTHS } from '@/constants/constants';
+import { Exercise } from '@/types/types';
 import React from 'react';
 
 interface WorkoutDoneProps {
   date: Date;
-  routine: string[];
+  routine: Exercise[];
   sets?: string[];
   repetitions?: string[],
   weights?: string[],
@@ -27,12 +28,13 @@ export default function WorkoutDone({
   return (
     <div className='flex flex-col border-2 border-primaryColor'>
       <p className='w-full text-center font-bold text-xl'>{day} de {month} - {year}</p>
+      <p></p>
       <div className='flex items-start gap-x-4'>
         <div>
           <p className='font-semibold text-lg'>Rutina</p>
-          {routine?.map((item, index) => {
+          {routine?.map((item) => {
             return (
-              <p key={`${item}-${date}-${index}-exercise`}>{item}</p>
+              <p key={`${item.id}-${date}-exercise-in-workout`}>{item.name}</p>
             )
           })}
         </div>

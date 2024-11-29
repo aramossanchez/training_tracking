@@ -9,27 +9,14 @@ import { CreatingRoutine } from '@/types/types';
 import React, { useEffect, useState } from 'react';
 
 export default function RoutineCreatorTemplate() {
-  const { saved_routines, storeRoutine } = useRoutines();
+  const { saved_routines } = useRoutines();
   const [routinesList, setRoutinesList] = useState<CreatingRoutine[] | null>();
 
-  // const saveRoutine = () => {
-  //   if (!saved_routines && newRoutine) {
-  //     storeRoutine(JSON.stringify([newRoutine]))
-  //     setRoutinesList([newRoutine]);
-  //   } else {
-  //     const newRoutinesList = JSON.parse(saved_routines as string);
-  //     newRoutinesList.push(newRoutine);
-  //     storeRoutine(JSON.stringify(newRoutinesList));
-  //     setRoutinesList(newRoutinesList);
+  // useEffect(() => {
+  //   if (localStorage && saved_routines) {
+  //     setRoutinesList(saved_routines());
   //   }
-  //   setNewRoutine(null);
-  // }
-
-  useEffect(() => {
-    if (localStorage && saved_routines) {
-      setRoutinesList(JSON.parse(saved_routines));
-    }
-  }, [saved_routines]);
+  // }, [saved_routines()]);
 
   return (
     <main className='template-structure space-y-5'>
@@ -38,7 +25,7 @@ export default function RoutineCreatorTemplate() {
       <div className='col-span-full'>
         <h2>Rutinas creadas</h2>
         <div className='flex gap-x-10'>
-          {routinesList?.map((routine, index) => {
+          {saved_routines()?.map((routine, index) => {
             return (
               <div key={`${routine?.name}-${index}`} className='border-2 border-primaryColor'>
                 <CircleButton icon={<EditIcon />} onClick={() => console.log()} />

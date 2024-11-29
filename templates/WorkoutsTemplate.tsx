@@ -4,6 +4,7 @@ import AddIcon from '@/atoms/icons/AddIcon';
 import SaveIcon from '@/atoms/icons/SaveIcon';
 import { FULL_DAYS } from '@/constants/constants';
 import { useWorkouts } from '@/hooks/useWorkouts';
+import CreatingNewWorkout from '@/organisms/CreatingNewWorkout';
 import WorkoutDone from '@/organisms/WorkoutDone';
 import { CreatingWorkout, WorkoutsList } from '@/types/types';
 import React, { useEffect, useState } from 'react'
@@ -77,8 +78,7 @@ export default function WorkoutsTemplate() {
                     />
                   )
                 })}
-                <CircleButton icon={<AddIcon size={30}/>} onClick={() => console.log("addButton")}/>
-                <CircleButton icon={<SaveIcon size={30}/>} onClick={() => console.log("saveButton")}/>
+                <CreatingNewWorkout />
               </div>
             )
           })}

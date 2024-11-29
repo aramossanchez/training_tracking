@@ -1,16 +1,16 @@
-interface Exercise {
-  id: number,
+export interface Exercise {
+  id: string,
   name: string,
 }
 
 export interface CreatingRoutine {
-  id: number,
+  id: string,
   name: string,
   routine: Exercise[],
 }
 
 export interface CreatingWorkout {
-  routine: string[],
+  routine: Exercise[],
   day?: string,
   date: Date,
   sets?: string[],
