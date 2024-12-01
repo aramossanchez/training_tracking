@@ -5,10 +5,10 @@ import SearchIcon from '@/atoms/icons/SearchIcon';
 import { useRoutines } from '@/hooks/useRoutines';
 import { useWorkouts } from '@/hooks/useWorkouts';
 import CalendarForSelectDay from '@/molecules/CalendarForSelectDay';
-import { CreatingRoutine, CreatingWorkout, WorkoutsList } from '@/types/types';
+import { CreatingRoutine, WorkoutType, WorkoutsList } from '@/types/types';
 import React, { useState } from 'react'
 
-export default function NewWorkout({day}: {day: number}) {
+export default function NewWorkout({ day }: { day: number }) {
   const { saved_workouts, storeWorkout } = useWorkouts();
 
   const saveWorkout = () => {
@@ -34,10 +34,14 @@ export default function NewWorkout({day}: {day: number}) {
   const { saved_routines } = useRoutines();
   const actualYear = new Date().getFullYear();
   const actualMonth = new Date().getMonth();
+  const actualDay = new Date().getDay();
   const [creatingNewRoutine, setNewRoutine] = useState<boolean>(false);
   const [selectingDay, setSelectingDay] = useState<boolean>(false);
   const initialWorkout = {
     id: crypto.randomUUID(),
+    day: actualDay,
+    month: 2,
+    year: 2023,
     date: "",
     routine: [],
     sets: [],
@@ -46,7 +50,7 @@ export default function NewWorkout({day}: {day: number}) {
     times: [],
     distances: []
   };
-  const [newWorkout, setNewWorkout] = useState<CreatingWorkout>(initialWorkout);
+  const [newWorkout, setNewWorkout] = useState<WorkoutType>(initialWorkout);
 
   const createWorkoutRows = (routine) => {
     const updatedValues = routine.map(() => ({
@@ -57,22 +61,24 @@ export default function NewWorkout({day}: {day: number}) {
   };
 
   const editNewWorkout = (field: string, value: string, id?: string) => {
-    const editingWorkout = structuredClone(newWorkout);
-    if (field === "routine") {
-      editingWorkout.routine = value;
-      editingWorkout.sets = createWorkoutRows(value);
-      editingWorkout.repetitions = createWorkoutRows(value);
-      editingWorkout.weights = createWorkoutRows(value);
-      editingWorkout.times = createWorkoutRows(value);
-      editingWorkout.distances = createWorkoutRows(value);
-    }
-    if (id !== undefined) {
-      const itemIndex = editingWorkout?.[field].findIndex((item) => item.id === id);
-      editingWorkout[field][itemIndex].value = value;
-    } else {
-      editingWorkout[field] = value;
-    }
-    setNewWorkout(editingWorkout);
+    setNewWorkout((prevWorkout) => {
+      const editingWorkout = structuredClone(prevWorkout);
+      if (field === "routine") {
+        editingWorkout.routine = value;
+        editingWorkout.sets = createWorkoutRows(value);
+        editingWorkout.repetitions = createWorkoutRows(value);
+        editingWorkout.weights = createWorkoutRows(value);
+        editingWorkout.times = createWorkoutRows(value);
+        editingWorkout.distances = createWorkoutRows(value);
+      }
+      if (id !== undefined) {
+        const itemIndex = editingWorkout?.[field].findIndex((item) => item.id === id);
+          editingWorkout[field][itemIndex].value = value;
+      } else {
+        editingWorkout[field] = value;
+      }
+      return editingWorkout;
+    });
   }
 
   return (
@@ -89,6 +95,9 @@ export default function NewWorkout({day}: {day: number}) {
                   year={actualYear}
                   month={actualMonth}
                   selectDay={(e) => editNewWorkout("date", e)}
+                  selectDayNumber={(e) => editNewWorkout("day", e)}
+                  selectMonth={(e) => editNewWorkout("month", e)}
+                  selectYear={(e) => editNewWorkout("year", e)}
                   closeCalendar={setSelectingDay}
                 />
               </div>

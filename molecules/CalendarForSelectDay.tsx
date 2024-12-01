@@ -1,11 +1,14 @@
 "use client";
-import { useGetDates } from '@/hook/useGetDates';
+import { GetDates } from '@/services/getDates.service';
 import React from 'react';
 
 interface CalendarForSelectDayProps {
   year: number;
   month: number;
   selectDay: (date: string) => string;
+  selectDayNumber: (day: number) => number;
+  selectMonth: (month: number) => number;
+  selectYear: (year: number) => number;
   closeCalendar: (state: boolean) => void;
 }
 
@@ -13,6 +16,9 @@ export default function CalendarForSelectDay({
   year,
   month,
   selectDay,
+  selectDayNumber,
+  selectMonth,
+  selectYear,
   closeCalendar,
 }: CalendarForSelectDayProps) {
 
@@ -26,7 +32,7 @@ export default function CalendarForSelectDay({
     "D",
   ];
 
-  const { allDaysOfTheMonth } = useGetDates({
+  const { allDaysOfTheMonth } = GetDates({
     selectedYear: year,
     selectedMonth: month
   });
@@ -36,8 +42,11 @@ export default function CalendarForSelectDay({
     return index === 0 ? checkedDay : undefined;
   }
 
-  const clickOnDay = (date: string) => {
-    selectDay(date);
+  const clickOnDay = (day: string, dayNumber: number) => {
+    selectDay(day);
+    selectDayNumber(dayNumber);
+    selectMonth(month);
+    selectYear(year);
     closeCalendar(false);
   }
 
@@ -64,9 +73,9 @@ export default function CalendarForSelectDay({
           return (
             <div key={day.toDateString()} className="col-span-1 flex justify-center items-center" style={{ gridColumnStart: firstDay(index, day.getDay()) }}>
               <span
-              id={day.getTime().toString()}
-              className='text-center rounded-full border-2 border-transparent hover:border-primaryColor duration-500 ease-out cursor-pointer'
-              onClick={() => clickOnDay(`${index < 9 ? `0${index + 1}` : index + 1} de ${allDaysOfTheMonth.month} - ${year}`)}
+                id={day.getTime().toString()}
+                className='text-center rounded-full border-2 border-transparent hover:border-primaryColor duration-500 ease-out cursor-pointer'
+                onClick={() => clickOnDay(`${index < 9 ? `0${index + 1}` : index + 1} de ${allDaysOfTheMonth.month} - ${year}`, index + 1)}
               >
                 {index < 9 ? `0${index + 1}` : index + 1}
               </span>

@@ -3,7 +3,7 @@ interface GetDatesProps {
   selectedMonth?: number;
 }
 
-export const useGetDates = ({
+export const GetDates = ({
   selectedYear,
   selectedMonth
 }: GetDatesProps) => {
@@ -31,6 +31,7 @@ export const useGetDates = ({
     }
     allDaysOfTheYear.push({
       month: MONTHS[month],
+      month_number: month,
       days: dates
     });
   }

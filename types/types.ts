@@ -14,7 +14,11 @@ export interface DataWorkout {
   value: string
 }
 
-export interface CreatingWorkout {
+export interface WorkoutType {
+  id: string,
+  day: number,
+  month: number,
+  year: number,
   date: string,
   routine: Exercise[],
   sets?: DataWorkout[],
@@ -24,4 +28,4 @@ export interface CreatingWorkout {
   distances?: DataWorkout[],
 }
 
-export type WorkoutsList = Record<number, CreatingWorkout[]>;
+export type WorkoutsList = Record<number, WorkoutType[]>;

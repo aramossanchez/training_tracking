@@ -3,7 +3,7 @@ import { FULL_DAYS } from '@/constants/constants';
 import { useWorkouts } from '@/hooks/useWorkouts';
 import NewWorkout from '@/molecules/NewWorkout';
 import WorkoutCreated from '@/molecules/WorkoutCreated';
-import { CreatingWorkout } from '@/types/types';
+import { WorkoutType } from '@/types/types';
 import React from 'react'
 
 export default function WorkoutsTemplate() {
@@ -21,7 +21,7 @@ export default function WorkoutsTemplate() {
                   <p className='text-left flex-nowrap px-2 text-xl bg-primaryColor'>{day}</p>
                 </div>
                 {saved_workouts() && Array.isArray(saved_workouts()[index]) &&
-                  saved_workouts()[index].map((workout: CreatingWorkout, subindex: number) => {
+                  saved_workouts()[index].map((workout: WorkoutType, subindex: number) => {
                     return (
                       <WorkoutCreated
                         key={`${workout.date}-${subindex}-workout`}

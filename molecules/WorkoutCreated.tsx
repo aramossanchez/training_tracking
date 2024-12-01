@@ -1,6 +1,6 @@
 import CircleButton from '@/atoms/CircleButton';
 import EditIcon from '@/atoms/icons/EditIcon';
-import { CreatingWorkout } from '@/types/types';
+import { WorkoutType } from '@/types/types';
 import React from 'react';
 
 export default function WorkoutCreated({
@@ -11,7 +11,7 @@ export default function WorkoutCreated({
   weights,
   times,
   distances,
-}: CreatingWorkout) {
+}: WorkoutType) {
 
   return (
     <div className='flex flex-col border-2 border-primaryColor'>

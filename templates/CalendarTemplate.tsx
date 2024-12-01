@@ -1,3 +1,4 @@
+"use client";
 import Calendar from '@/organisms/Calendar'
 import React from 'react'
 
