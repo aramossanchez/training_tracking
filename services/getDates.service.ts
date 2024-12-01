@@ -36,7 +36,7 @@ export const GetDates = ({
     });
   }
 
-  let allDaysOfTheMonth: {month: string, days: Date[]} = {month: "", days: []};
+  let allDaysOfTheMonth: {month: string, month_number: number, days: Date[]} = {month: "", month_number: 0, days: []};
   if (selectedMonth) {
     const daysCount = new Date(selectedYear, selectedMonth + 1, 0).getDate();
     const dates: Date[] = [];
@@ -45,6 +45,7 @@ export const GetDates = ({
     }
     allDaysOfTheMonth = {
       month: MONTHS[selectedMonth],
+      month_number: selectedMonth,
       days: dates
     }
   }

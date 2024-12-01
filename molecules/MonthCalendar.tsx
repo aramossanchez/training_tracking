@@ -11,7 +11,6 @@ export default function MonthCalendar({
   year,
 }: MonthCalendarProps) {
   const { workoutsFiltered } = WorkoutsInMonth(year, month.month_number);
-  console.log(workoutsFiltered);
 
   const DAYS = [
     "L",
