@@ -1,8 +1,8 @@
-import RoutineCreatorTemplate from '@/templates/RoutineCreatorTemplate'
+import RoutinesTemplate from '@/templates/RoutinesTemplate'
 import React from 'react'
 
 export default function RoutineCreatorPage() {
   return (
-    <RoutineCreatorTemplate />
+    <RoutinesTemplate />
   )
 }

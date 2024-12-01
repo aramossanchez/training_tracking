@@ -9,15 +9,19 @@ export interface CreatingRoutine {
   routine: Exercise[],
 }
 
+export interface DataWorkout {
+  id: string,
+  value: string
+}
+
 export interface CreatingWorkout {
+  date: string,
   routine: Exercise[],
-  day?: string,
-  date: Date,
-  sets?: string[],
-  repetitions?: string[],
-  weights?: string[],
-  times?: string[],
-  distances?: string[],
+  sets?: DataWorkout[],
+  repetitions?: DataWorkout[],
+  weights?: DataWorkout[],
+  times?: DataWorkout[],
+  distances?: DataWorkout[],
 }
 
 export type WorkoutsList = Record<number, CreatingWorkout[]>;

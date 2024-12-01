@@ -6,7 +6,7 @@ import { useRoutines } from '@/hooks/useRoutines';
 import { CreatingRoutine } from '@/types/types';
 import React, { useState } from 'react'
 
-export default function CreatingNewRoutine() {
+export default function NewRoutine() {
   const initialRoutine = { id: crypto.randomUUID(), name: "", routine: [{id: crypto.randomUUID(), name: ""}] };
 
   const { saved_routines, storeRoutine } = useRoutines();

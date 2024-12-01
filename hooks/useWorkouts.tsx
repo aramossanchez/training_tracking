@@ -2,13 +2,21 @@ export const useWorkouts = () => {
 
   const isLocalStorageAvailable = typeof localStorage !== "undefined";
 
-  const saved_workouts = isLocalStorageAvailable
-    ? localStorage.getItem("training_tracking_my_workouts")
-    : null;
-    
+  const saved_workouts = () => {
+    if (isLocalStorageAvailable) {
+      const myWorkouts = localStorage.getItem("training_tracking_my_workouts") as string;
+      if (myWorkouts) {
+        return JSON.parse(myWorkouts);
+      } else {
+        return null;
+      }
+    }
+  }
+
   const storeWorkout = (item: string) => {
     if (isLocalStorageAvailable) {
-      localStorage.setItem("training_tracking_my_workouts", item);
+      const newMyWorkouts = JSON.stringify(item);
+      localStorage.setItem("training_tracking_my_workouts", newMyWorkouts);
     }
   };
 

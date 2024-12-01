@@ -1,5 +1,7 @@
 export default function Home() {
   return (
-    <span>tremenda landing papi</span>
+    <main className='template-structure space-y-5'>
+      <h1 className='col-span-full'>Landing</h1>
+    </main>
   );
 }
