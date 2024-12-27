@@ -5,11 +5,31 @@ import SearchIcon from '@/atoms/icons/SearchIcon';
 import { useRoutines } from '@/hooks/useRoutines';
 import { useWorkouts } from '@/hooks/useWorkouts';
 import CalendarForSelectDay from '@/molecules/CalendarForSelectDay';
-import { CreatingRoutine, WorkoutType, WorkoutsList } from '@/types/types';
+import { CreatingRoutine, Exercise, WorkoutType, WorkoutsList } from '@/types/types';
 import React, { useState } from 'react'
 
 export default function NewWorkout({ day }: { day: number }) {
   const { saved_workouts, storeWorkout } = useWorkouts();
+
+  const checkWorkoutEmptyFields = () => {
+    const workoutToCheck = structuredClone(newWorkout);
+    const keys = Object.keys(workoutToCheck) as (keyof WorkoutType)[];
+
+    for (const key of keys) {
+      let isEmpty: boolean = true;
+      if (Array.isArray(workoutToCheck[key])) {
+        workoutToCheck[key].map((item) => {
+          if (item.value !== "" && item.value !== "-") {
+            isEmpty = false;
+          }
+        });
+        if (isEmpty) {
+          delete workoutToCheck[key];
+        }
+      }
+    }
+    return workoutToCheck;
+  }
 
   const saveWorkout = () => {
     if (!saved_workouts() && newWorkout) {
@@ -22,14 +42,16 @@ export default function NewWorkout({ day }: { day: number }) {
         5: [],
         6: [],
       }
-      workoutStructure[day] = [newWorkout];
-      storeWorkout(workoutStructure)
+      const checkedWorkout = checkWorkoutEmptyFields();
+      workoutStructure[day] = [checkedWorkout];
+      storeWorkout(workoutStructure);
     } else {
+      const checkedWorkout = checkWorkoutEmptyFields();
       const newWorkoutsList = saved_workouts();
-      newWorkoutsList[day].push(newWorkout);
+      newWorkoutsList[day].push(checkedWorkout);
       storeWorkout(newWorkoutsList);
+      // setNewWorkout(null);
     }
-    // setNewWorkout(null);
   }
   const { saved_routines } = useRoutines();
   const actualYear = new Date().getFullYear();
@@ -52,7 +74,7 @@ export default function NewWorkout({ day }: { day: number }) {
   };
   const [newWorkout, setNewWorkout] = useState<WorkoutType>(initialWorkout);
 
-  const createWorkoutRows = (routine) => {
+  const createWorkoutRows = (routine: Exercise[]) => {
     const updatedValues = routine.map(() => ({
       id: crypto.randomUUID(),
       value: "-"
@@ -60,20 +82,21 @@ export default function NewWorkout({ day }: { day: number }) {
     return updatedValues;
   };
 
-  const editNewWorkout = (field: string, value: string, id?: string) => {
+  const editNewWorkout = (field: string, value: string | Exercise[], id?: string) => {
     setNewWorkout((prevWorkout) => {
       const editingWorkout = structuredClone(prevWorkout);
       if (field === "routine") {
-        editingWorkout.routine = value;
-        editingWorkout.sets = createWorkoutRows(value);
-        editingWorkout.repetitions = createWorkoutRows(value);
-        editingWorkout.weights = createWorkoutRows(value);
-        editingWorkout.times = createWorkoutRows(value);
-        editingWorkout.distances = createWorkoutRows(value);
+        console.log(value)
+        editingWorkout.routine = value as Exercise[];
+        editingWorkout.sets = createWorkoutRows(value as Exercise[]);
+        editingWorkout.repetitions = createWorkoutRows(value as Exercise[]);
+        editingWorkout.weights = createWorkoutRows(value as Exercise[]);
+        editingWorkout.times = createWorkoutRows(value as Exercise[]);
+        editingWorkout.distances = createWorkoutRows(value as Exercise[]);
       }
       if (id !== undefined) {
         const itemIndex = editingWorkout?.[field].findIndex((item) => item.id === id);
-          editingWorkout[field][itemIndex].value = value;
+        editingWorkout[field][itemIndex].value = value;
       } else {
         editingWorkout[field] = value;
       }
@@ -121,46 +144,56 @@ export default function NewWorkout({ day }: { day: number }) {
                 )
               })}
             </div>
-            <div>
-              <p className='font-semibold text-lg'>Series</p>
-              {newWorkout.sets?.map((item) => {
-                return (
-                  <input key={`${item.id}-set`} type="text" value={item.value} onChange={(e) => editNewWorkout("sets", e.target.value, item.id)} />
-                )
-              })}
-            </div>
-            <div>
-              <p className='font-semibold text-lg'>Repeticiones</p>
-              {newWorkout.repetitions?.map((item) => {
-                return (
-                  <input key={`${item.id}-repetition`} type="text" value={item.value} onChange={(e) => editNewWorkout("repetitions", e.target.value, item.id)} />
-                )
-              })}
-            </div>
-            <div>
-              <p className='font-semibold text-lg'>Peso</p>
-              {newWorkout.weights?.map((item) => {
-                return (
-                  <input key={`${item.id}-weight`} type="text" value={item.value} onChange={(e) => editNewWorkout("weights", e.target.value, item.id)} />
-                )
-              })}
-            </div>
-            <div>
-              <p className='font-semibold text-lg'>Tiempo</p>
-              {newWorkout.times?.map((item) => {
-                return (
-                  <input key={`${item.id}-time`} type="text" value={item.value} onChange={(e) => editNewWorkout("times", e.target.value, item.id)} />
-                )
-              })}
-            </div>
-            <div>
-              <p className='font-semibold text-lg'>Distancia</p>
-              {newWorkout.distances?.map((item) => {
-                return (
-                  <input key={`${item.id}-distance`} type="text" value={item.value} onChange={(e) => editNewWorkout("distances", e.target.value, item.id)} />
-                )
-              })}
-            </div>
+            {newWorkout?.sets &&
+              <div>
+                <p className='font-semibold text-lg'>Series</p>
+                {newWorkout.sets?.map((item) => {
+                  return (
+                    <input key={`${item.id}-set`} type="text" value={item.value} onChange={(e) => editNewWorkout("sets", e.target.value, item.id)} />
+                  )
+                })}
+              </div>
+            }
+            {newWorkout?.repetitions &&
+              <div>
+                <p className='font-semibold text-lg'>Repeticiones</p>
+                {newWorkout.repetitions?.map((item) => {
+                  return (
+                    <input key={`${item.id}-repetition`} type="text" value={item.value} onChange={(e) => editNewWorkout("repetitions", e.target.value, item.id)} />
+                  )
+                })}
+              </div>
+            }
+            {newWorkout?.weights &&
+              <div>
+                <p className='font-semibold text-lg'>Peso</p>
+                {newWorkout.weights?.map((item) => {
+                  return (
+                    <input key={`${item.id}-weight`} type="text" value={item.value} onChange={(e) => editNewWorkout("weights", e.target.value, item.id)} />
+                  )
+                })}
+              </div>
+            }
+            {newWorkout?.times &&
+              <div>
+                <p className='font-semibold text-lg'>Tiempo</p>
+                {newWorkout.times?.map((item) => {
+                  return (
+                    <input key={`${item.id}-time`} type="text" value={item.value} onChange={(e) => editNewWorkout("times", e.target.value, item.id)} />
+                  )
+                })}
+              </div>
+            }
+            {newWorkout?.distances &&
+              <div>
+                <p className='font-semibold text-lg'>Distancia</p>
+                {newWorkout.distances?.map((item) => {
+                  return (
+                    <input key={`${item.id}-distance`} type="text" value={item.value} onChange={(e) => editNewWorkout("distances", e.target.value, item.id)} />
+                  )
+                })}
+              </div>
+            }
           </div>
         </div>
       }

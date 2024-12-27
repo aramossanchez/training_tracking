@@ -25,46 +25,56 @@ export default function WorkoutCreated({
             )
           })}
         </div>
-        <div>
-          <p className='font-semibold text-lg'>Series</p>
-          {sets?.map((item, index) => {
-            return (
-              <p key={`${item}-${date}-${index}-set`}>{item.value}</p>
-            )
-          })}
-        </div>
-        <div>
-          <p className='font-semibold text-lg'>Repeticiones</p>
-          {repetitions?.map((item, index) => {
-            return (
-              <p key={`${item}-${date}-${index}-repetition`}>{item.value}</p>
-            )
-          })}
-        </div>
-        <div>
-          <p className='font-semibold text-lg'>Peso</p>
-          {weights?.map((item, index) => {
-            return (
-              <p className='text-nowrap' key={`${item}-${date}-${index}-weight`}>{item.value}</p>
-            )
-          })}
-        </div>
-        <div>
-          <p className='font-semibold text-lg'>Tiempo</p>
-          {times?.map((item, index) => {
-            return (
-              <p className='text-nowrap' key={`${item}-${date}-${index}-time`}>{item.value}</p>
-            )
-          })}
-        </div>
-        <div>
-          <p className='font-semibold text-lg'>Distancia</p>
-          {distances?.map((item, index) => {
-            return (
-              <p key={`${item}-${date}-${index}-distance`}>{item.value}</p>
-            )
-          })}
-        </div>
+        {sets &&
+          <div>
+            <p className='font-semibold text-lg'>Series</p>
+            {sets?.map((item, index) => {
+              return (
+                <p key={`${item}-${date}-${index}-set`}>{item.value}</p>
+              )
+            })}
+          </div>
+        }
+        {repetitions &&
+          <div>
+            <p className='font-semibold text-lg'>Repeticiones</p>
+            {repetitions?.map((item, index) => {
+              return (
+                <p key={`${item}-${date}-${index}-repetition`}>{item.value}</p>
+              )
+            })}
+          </div>
+        }
+        {weights &&
+          <div>
+            <p className='font-semibold text-lg'>Peso</p>
+            {weights?.map((item, index) => {
+              return (
+                <p className='text-nowrap' key={`${item}-${date}-${index}-weight`}>{item.value}</p>
+              )
+            })}
+          </div>
+        }
+        {times &&
+          <div>
+            <p className='font-semibold text-lg'>Tiempo</p>
+            {times?.map((item, index) => {
+              return (
+                <p className='text-nowrap' key={`${item}-${date}-${index}-time`}>{item.value}</p>
+              )
+            })}
+          </div>
+        }
+        {distances &&
+          <div>
+            <p className='font-semibold text-lg'>Distancia</p>
+            {distances?.map((item, index) => {
+              return (
+                <p key={`${item}-${date}-${index}-distance`}>{item.value}</p>
+              )
+            })}
+          </div>
+        }
         <CircleButton icon={<EditIcon size={30} />} onClick={() => console.log("edit")} />
       </div>
     </div>
